@@ -6,10 +6,11 @@ public class Health : MonoBehaviour
 {
     public float health;
     public float maxHealth;
+    GameObject deathEffect;
     // Start is called before the first frame update
     void Start()
     {
-        
+        deathEffect = Resources.Load<GameObject>("Enemies/deathEffect");
     }
 
     // Update is called once per frame
@@ -17,6 +18,7 @@ public class Health : MonoBehaviour
     {
         if (health < 0) {
             health = 0;
+            Destroy(transform.parent);
         }
 
         Transform healthbar = transform.Find("HealthBar");
@@ -30,6 +32,11 @@ public class Health : MonoBehaviour
         if (collision.gameObject.tag == "Enemy")
         {
             health -= 5;
+            Vector3 enemyPos = collision.gameObject.transform.position;
+            GameObject explosion = Instantiate(deathEffect, enemyPos, Quaternion.identity);
+            Destroy(collision.gameObject);
+            Destroy(explosion, 1);
+            StartCoroutine(Camera.main.GetComponent<CameraMovement>().Shake(.25f, .1f));
         }
     }
 }

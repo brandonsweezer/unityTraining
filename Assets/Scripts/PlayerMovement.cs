@@ -6,24 +6,70 @@ public class PlayerMovement : MonoBehaviour
 {
 
     public GameObject playerModel;
-    private float horizontalMovement;
-    private float verticalMovement;
     public float moveSpeed;
+    public float dashSpeed;
+    public float dashDuration;
+
+    private bool dashing;
+    private float dashTimer;
+    private Vector3 dashVelocity;
+    private Rigidbody2D rb;
+    public ParticleSystem dashEffect;
     // Start is called before the first frame update
     void Start()
     {
-        horizontalMovement = 0.0f;
-        verticalMovement = 0.0f;
+        if (!playerModel) {
+            playerModel = GameObject.FindWithTag("Player");
+        }
+        dashEffect.Stop();
+        rb = playerModel.GetComponent<Rigidbody2D>();
+    }
+
+    void Update() {
+        if (Input.GetKeyDown(KeyCode.Space) && !dashing) {
+            Dash();
+        }
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        horizontalMovement = Input.GetAxisRaw("Horizontal");
-        verticalMovement = Input.GetAxisRaw("Vertical");
-        float moveX = (horizontalMovement * moveSpeed * Time.deltaTime);
-        float moveY = (verticalMovement * moveSpeed * Time.deltaTime);
-        Vector3 newPos = new Vector3(moveX, moveY, 0) + playerModel.transform.position;
-        playerModel.transform.position = newPos;
+        if (dashTimer > dashDuration) {
+            dashing = false;
+            dashEffect.Stop();
+        }
+
+        if (dashing) {
+            applyDashMovement();
+            dashTimer += Time.fixedDeltaTime;
+        } else {
+            applyRegularMovement();
+        }
+        
+    }
+
+    void applyRegularMovement() {
+        float moveX = Input.GetAxisRaw("Horizontal");
+        float moveY = Input.GetAxisRaw("Vertical");
+
+        Vector3 velocity = new Vector3(moveX, moveY, 0).normalized * moveSpeed;
+        rb.velocity = velocity;
+    }
+
+    void applyDashMovement() {
+        rb.velocity = dashVelocity;
+    }
+
+
+    void Dash() {
+        dashTimer = 0;
+        dashing = true;
+        float moveX = Input.GetAxisRaw("Horizontal");
+        float moveY = Input.GetAxisRaw("Vertical");
+        dashVelocity = new Vector3(moveX, moveY, 0).normalized * dashSpeed;
+        rb.velocity = dashVelocity;
+        // emit particles
+        dashEffect.Play();
+        StartCoroutine(Camera.main.GetComponent<CameraMovement>().Shake(.75f, dashDuration));
     }
 }
