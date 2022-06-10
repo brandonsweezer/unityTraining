@@ -58,6 +58,8 @@ public class PlayerMovement : MonoBehaviour
 
     void applyDashMovement() {
         rb.velocity = dashVelocity;
+        Thermodynamics thermals = playerModel.GetComponent<Thermodynamics>();
+        thermals.temperature += 1.0f;
     }
 
 
@@ -70,6 +72,6 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = dashVelocity;
         // emit particles
         dashEffect.Play();
-        StartCoroutine(Camera.main.GetComponent<CameraMovement>().Shake(.75f, dashDuration));
+        Camera.main.GetComponent<CameraMovement>().Shake(.75f, dashDuration);
     }
 }

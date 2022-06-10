@@ -5,15 +5,22 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour
 {
 
+    private GameObject lightFlash;
+    void Start() {
+        lightFlash = Resources.Load<GameObject>("Enemies/deathFlash");
+    }
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.E)) {
-            StartCoroutine(Shake(1.0f, 1.0f));
+            Shake(1.0f, 1.0f);
         }
     }
 
-    public IEnumerator Shake(float magnitude, float duration) {
+    public void Shake(float magnitude, float duration) {
+        StartCoroutine(ShakeC(magnitude, duration));
+    }
+    private IEnumerator ShakeC(float magnitude, float duration) {
         Vector3 originalPos = transform.localPosition;
 
         float elapsedTime = 0;
@@ -30,5 +37,27 @@ public class CameraMovement : MonoBehaviour
         }
 
         transform.localPosition = originalPos;
+    }
+
+    public void LightFlash(Vector3 position, float duration, float intensity, Color color) {
+        StartCoroutine(LightFlashC(position, duration, intensity, color));
+    }
+    private IEnumerator LightFlashC(Vector3 position, float duration, float intensity, Color color) {
+        GameObject lightObj = Instantiate(lightFlash, position, Quaternion.identity);
+        UnityEngine.Rendering.Universal.Light2D light2 = lightObj.GetComponent<UnityEngine.Rendering.Universal.Light2D>();
+        float elapsedTime = 0.0f;
+        while (elapsedTime < duration) {
+            float percentComplete = (elapsedTime / duration);
+            light2.intensity = (1 - percentComplete) * intensity;
+            Debug.Log($"time: {elapsedTime}");
+            Debug.Log($"duration: {duration}");
+            elapsedTime += Time.deltaTime;
+            Debug.Log($"time2: {elapsedTime}");
+            // wait a frame
+            Debug.Log("waiting a frame");
+            yield return null;
+        }
+        Debug.Log("Destroying it!");
+        Destroy(lightObj, .1f);
     }
 }

@@ -11,7 +11,9 @@ public class SpawnEnemies : MonoBehaviour
     public int maxEnemies;
 
     public Camera cam;
-    public GameObject enemyToSpawn;
+    public GameObject hotEnemy;
+    public GameObject coldEnemy;
+    public GameObject enemy;
     public TMP_Text timerText;
 
     public GameObject enemyGroup; 
@@ -21,7 +23,9 @@ public class SpawnEnemies : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        enemyToSpawn = Resources.Load<GameObject>("Enemies/square_red");
+        hotEnemy = Resources.Load<GameObject>("Enemies/hot");
+        coldEnemy = Resources.Load<GameObject>("Enemies/cold");
+        enemy = Resources.Load<GameObject>("Enemies/Square");
         cam = Camera.main;
     }
 
@@ -36,7 +40,9 @@ public class SpawnEnemies : MonoBehaviour
         if (lastSpawned != seconds) {
             if (enemyGroup.transform.childCount < maxEnemies) {
                 for (int i = 0; i < enemiesPerSecond; i ++) {
-                    GameObject obj = Instantiate(enemyToSpawn, getSpawnLocation(), Quaternion.identity);
+                    GameObject obj;
+                    obj = Instantiate(enemy, getSpawnLocation(), Quaternion.identity);
+                    obj.GetComponent<Thermodynamics>().temperature = Random.Range(-1,1) * obj.GetComponent<Thermodynamics>().maxTemp;
                     obj.name = $"enemy_{enemyNumber}";
                     obj.transform.SetParent(enemyGroup.transform);
                     lastSpawned = seconds;
