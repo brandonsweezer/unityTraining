@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 5027032405280585911}
   m_Layer: 0
   m_Name: Square
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -637,9 +637,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   temperature: 0
-  mass: 1
-  maxTemp: 10
-  specificHeat: 0.5
+  mass: 2
+  maxTemp: 100
+  specificHeat: 0.1
 --- !u!50 &5027032405280587592
 Rigidbody2D:
   serializedVersion: 4

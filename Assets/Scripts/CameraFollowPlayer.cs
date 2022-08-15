@@ -14,6 +14,14 @@ public class CameraFollowPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = new Vector3(playerModel.transform.position.x, playerModel.transform.position.y, transform.position.z);
+        if (playerModel) {
+            transform.position = new Vector3(playerModel.transform.position.x, playerModel.transform.position.y, transform.position.z);
+        } else {
+            GameObject possiblePlayer = GameObject.FindWithTag("Player");
+            if (possiblePlayer != null) {
+                playerModel = possiblePlayer;
+            }
+        }
+        
     }
 }

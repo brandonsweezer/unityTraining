@@ -49,15 +49,10 @@ public class CameraMovement : MonoBehaviour
         while (elapsedTime < duration) {
             float percentComplete = (elapsedTime / duration);
             light2.intensity = (1 - percentComplete) * intensity;
-            Debug.Log($"time: {elapsedTime}");
-            Debug.Log($"duration: {duration}");
             elapsedTime += Time.deltaTime;
-            Debug.Log($"time2: {elapsedTime}");
             // wait a frame
-            Debug.Log("waiting a frame");
             yield return null;
         }
-        Debug.Log("Destroying it!");
-        Destroy(lightObj, .1f);
+        Destroy(lightObj, .2f);
     }
 }

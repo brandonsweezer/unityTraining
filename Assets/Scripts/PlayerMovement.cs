@@ -26,26 +26,36 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void Update() {
-        if (Input.GetKeyDown(KeyCode.Space) && !dashing) {
-            Dash();
+        if (playerModel == null) {
+            playerModel = GameObject.FindWithTag("Player");
+            if (playerModel != null) {
+                rb = playerModel.GetComponent<Rigidbody2D>();
+            }
+        } else {
+            if (Input.GetKeyDown(KeyCode.Space) && !dashing) {
+                Dash();
+            }
         }
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (dashTimer > dashDuration) {
-            dashing = false;
-            dashEffect.Stop();
-        }
-
-        if (dashing) {
-            applyDashMovement();
-            dashTimer += Time.fixedDeltaTime;
+        if (playerModel == null) {
+            playerModel = GameObject.FindWithTag("Player");
         } else {
-            applyRegularMovement();
+            if (dashTimer > dashDuration) {
+                dashing = false;
+                dashEffect.Stop();
+            }
+
+            if (dashing) {
+                applyDashMovement();
+                dashTimer += Time.fixedDeltaTime;
+            } else {
+                applyRegularMovement();
+            }
         }
-        
     }
 
     void applyRegularMovement() {

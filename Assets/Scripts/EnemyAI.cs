@@ -47,6 +47,6 @@ public class EnemyAI : MonoBehaviour
         Destroy(transform.gameObject);
         Destroy(explosion, 1);
         Camera.main.GetComponent<CameraMovement>().Shake(.25f, .1f);
-        Camera.main.GetComponent<CameraMovement>().LightFlash(transform.position, .2f, 2.0f, Color.white);
+        Camera.main.GetComponent<CameraMovement>().LightFlash(transform.position, .2f, 1.0f, Color.yellow);
     }
 }
