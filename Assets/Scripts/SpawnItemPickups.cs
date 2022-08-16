@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 
 public class SpawnItemPickups : MonoBehaviour
 {
@@ -17,11 +16,16 @@ public class SpawnItemPickups : MonoBehaviour
 
     private int lastSpawned = 0;
     private int itemNumber = 0;
+
+    public List<string> itemPickupsToSpawn;
     // Start is called before the first frame update
     void Start()
     {
         itemPickup = Resources.Load<GameObject>("Pickups/ItemPickupObject");
         cam = Camera.main;
+        itemPickupsToSpawn = new List<string>{ "heatGunFireRate", "playerMovementSpeed" };
+
+        // itemPickupsToSpawn = ["heatGunFireRate", "playerMovementSpeed"];
     }
 
     // Update is called once per frame
@@ -36,7 +40,19 @@ public class SpawnItemPickups : MonoBehaviour
                 for (int i = 0; i < itemsPerSecond; i ++) {
                     GameObject obj;
                     obj = Instantiate(itemPickup, getSpawnLocation(), Quaternion.identity);
-                    obj.GetComponent<ItemPickupHandler>().itemName = "coldDash";
+                    
+                    
+                    var RndB = new System.Random();
+                    int index = RndB.Next(itemPickupsToSpawn.Count);
+
+                    // yes this should be elsewhere, will do later!
+                    if (itemPickupsToSpawn[index] == "heatGunFireRate") {
+                        obj.GetComponent<UnityEngine.Rendering.Universal.Light2D>().color = Color.red;
+                    } else if (itemPickupsToSpawn[index] == "playerMovementSpeed") {
+                        obj.GetComponent<UnityEngine.Rendering.Universal.Light2D>().color = Color.blue;
+                    }
+                    
+                    obj.GetComponent<ItemPickupHandler>().itemName = itemPickupsToSpawn[index];
                     obj.name = $"item_{itemNumber}";
                     obj.transform.SetParent(itemPickupGroup.transform);
                     lastSpawned = seconds;

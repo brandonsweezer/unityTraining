@@ -21,5 +21,14 @@ public class PlayerInventory : MonoBehaviour
     public void AddToInventory(string itemName)
     {   
         inventory[itemName] = inventory.ContainsKey(itemName) ? inventory[itemName] + 1 : 1; // 1line Gang represent
+        if (itemName == "heatGunFireRate") {
+            HeatGun heatGun = gameObject.GetComponent<HeatGun>();
+            heatGun.fireRate = heatGun.fireRate + inventory[itemName]*100;
+        }
+        if (itemName == "playerMovementSpeed") {
+            PlayerMovement playerMovement = gameObject.GetComponent<PlayerMovement>();
+            playerMovement.moveSpeed = playerMovement.moveSpeed + inventory[itemName];
+        }
+        
     }
 }

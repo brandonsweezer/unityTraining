@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         if (!playerModel) {
-            playerModel = GameObject.FindWithTag("Player");
+            playerModel = gameObject;
         }
         dashEffect.Stop();
         rb = playerModel.GetComponent<Rigidbody2D>();
@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update() {
         if (playerModel == null) {
-            playerModel = GameObject.FindWithTag("Player");
+            playerModel = gameObject;
             if (playerModel != null) {
                 rb = playerModel.GetComponent<Rigidbody2D>();
             }
@@ -42,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         if (playerModel == null) {
-            playerModel = GameObject.FindWithTag("Player");
+            playerModel = gameObject;
         } else {
             doMovementAction();            
         }
