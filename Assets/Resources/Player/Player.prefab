@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1996873665722572923}
   - component: {fileID: 1996873665722572920}
   - component: {fileID: 1996873665722572921}
+  - component: {fileID: -2297195080268359182}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -149,11 +150,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 155f85726f6ca42c3b739e82e23c1766, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  specificHeat: 0
-  maxTemp: 0
-  maxCooldown: 0
-  temperature: 0
-  playerLight: {fileID: 0}
+--- !u!114 &-2297195080268359182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1996873665722572900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf9793e00e05071488eca98efb5e0c73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1996873665805760916
 GameObject:
   m_ObjectHideFlags: 0

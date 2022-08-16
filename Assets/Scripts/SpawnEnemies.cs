@@ -23,8 +23,6 @@ public class SpawnEnemies : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        hotEnemy = Resources.Load<GameObject>("Enemies/hot");
-        coldEnemy = Resources.Load<GameObject>("Enemies/cold");
         enemy = Resources.Load<GameObject>("Enemies/Square");
         cam = Camera.main;
     }

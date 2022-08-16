@@ -44,18 +44,34 @@ public class PlayerMovement : MonoBehaviour
         if (playerModel == null) {
             playerModel = GameObject.FindWithTag("Player");
         } else {
-            if (dashTimer > dashDuration) {
-                dashing = false;
-                dashEffect.Stop();
-            }
-
-            if (dashing) {
-                applyDashMovement();
-                dashTimer += Time.fixedDeltaTime;
-            } else {
-                applyRegularMovement();
-            }
+            doMovementAction();            
         }
+    }
+
+    void dashMovementHandler() {
+        if (dashTimer > dashDuration) {
+            dashing = false;
+            dashEffect.Stop();
+        }
+
+        if (dashing) {
+            applyDashMovement();
+            dashTimer += Time.fixedDeltaTime;
+        } else {
+            applyRegularMovement();
+        }
+    }
+
+    // uses equipped movement action
+    void doMovementAction() {
+        // GameObject equippedMovement = 
+        switch("dash") {
+            case "dash": dashMovementHandler(); break;
+            // case coolingDash: coolingDashMovementHandler(); break;
+            // default: break;
+        }
+        
+        
     }
 
     void applyRegularMovement() {
@@ -69,7 +85,7 @@ public class PlayerMovement : MonoBehaviour
     void applyDashMovement() {
         rb.velocity = dashVelocity;
         Thermodynamics thermals = playerModel.GetComponent<Thermodynamics>();
-        thermals.temperature += 1.0f;
+        thermals.temperature -= 1.0f;
     }
 
 

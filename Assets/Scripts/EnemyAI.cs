@@ -12,6 +12,8 @@ public class EnemyAI : MonoBehaviour
     private GameObject deathEffect;
     private GameObject deathFlash;
     private Thermodynamics thermals;
+    public GameObject temperatureText;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -44,6 +46,7 @@ public class EnemyAI : MonoBehaviour
     public void Kill()
     {
         GameObject explosion = Instantiate(deathEffect, transform.position, Quaternion.identity);
+        Destroy(temperatureText);
         Destroy(transform.gameObject);
         Destroy(explosion, 1);
         Camera.main.GetComponent<CameraMovement>().Shake(.25f, .1f);

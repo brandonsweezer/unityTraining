@@ -27,17 +27,21 @@ public class EnergyDisplay : MonoBehaviour
     }
 
     IEnumerator ThermalNumberC(Vector3 position, float energy) {
-        Vector3 screenspace = Camera.main.WorldToScreenPoint(position);
-        GameObject energyObj = Instantiate(energyText, new Vector3(0,0,0), Quaternion.identity);
-        energyObj.GetComponent<RectTransform>().anchoredPosition = new Vector2(screenspace.x, screenspace.y);
-        energyObj.transform.SetParent(canvas.transform, true);
-        energyObj.GetComponent<TMP_Text>().SetText($"{(int)energy + 1}");
+        // Vector3 screenspace = Camera.main.WorldToScreenPoint(position);
+        GameObject energyObj = Instantiate(energyText, position, Quaternion.identity);
+        // // energyObj.GetComponent<RectTransform>().anchoredPosition = new Vector2(screenspace.x, screenspace.y);
+        // energyObj.transform.SetParent(canvas.transform, true);
+        energyObj.GetComponent<TMP_Text>().SetText($"{(int)energy + 1}"); // maek betr
         float elapsedTime = 0;
-        float duration = 1.0f;
-        float moveSpeed = 15.0f;
+        float duration = Random.Range(0.5f,1f+(energy*10));
+        float moveSpeed = 5.0f;
+        float direction = Random.Range(-3f,3f);
         while (elapsedTime < duration) {
-            Vector3 pos = energyObj.GetComponent<RectTransform>().anchoredPosition;
-            energyObj.GetComponent<RectTransform>().anchoredPosition = new Vector2(pos.x, pos.y + moveSpeed * Time.deltaTime);
+            Vector3 pos = energyObj.transform.position;
+            energyObj.transform.position = new Vector3(pos.x + (direction * Time.deltaTime), pos.y + Mathf.Min(moveSpeed, moveSpeed/elapsedTime) * Time.deltaTime, -2);
+            
+            // Vector3 pos = energyObj.GetComponent<RectTransform>().anchoredPosition;
+            // energyObj.GetComponent<RectTransform>().anchoredPosition = new Vector2(pos.x, pos.y + moveSpeed * Time.deltaTime);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
