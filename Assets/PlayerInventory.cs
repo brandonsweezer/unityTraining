@@ -18,12 +18,8 @@ public class PlayerInventory : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter2D(Collider2D other) {
-        Debug.Log(other);
-        if (other.gameObject.tag == "ItemPickup") {
-            inventory.Add(other.gameObject.name, 1);
-            Destroy(other.gameObject);
-            Debug.Log(inventory);
-        }
+    public void AddToInventory(string itemName)
+    {   
+        inventory[itemName] = inventory.ContainsKey(itemName) ? inventory[itemName] + 1 : 1; // 1line Gang represent
     }
 }
