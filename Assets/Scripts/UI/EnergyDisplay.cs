@@ -33,7 +33,8 @@ public class EnergyDisplay : MonoBehaviour
         // energyObj.transform.SetParent(canvas.transform, true);
         energyObj.GetComponent<TMP_Text>().SetText($"{(int)energy + 1}"); // maek betr
         float elapsedTime = 0;
-        float duration = Random.Range(0.5f,1f+(energy*10));
+        // float duration = Random.Range(0.5f,1f+(energy*2));
+        float duration = energy/3;
         float moveSpeed = 5.0f;
         float direction = Random.Range(-3f,3f);
         while (elapsedTime < duration) {
