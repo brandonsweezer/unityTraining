@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 8084587929231652692}
   m_Layer: 0
   m_Name: HeatGunProjectile
-  m_TagString: Untagged
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -303,6 +303,7 @@ MonoBehaviour:
   maxTemp: 400
   specificHeat: 1
   colorMultiplier: 0
+  maxIntensity: 0
 --- !u!61 &8084587929231652695
 BoxCollider2D:
   m_ObjectHideFlags: 0

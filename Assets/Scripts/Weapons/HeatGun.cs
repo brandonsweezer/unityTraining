@@ -29,19 +29,19 @@ public class HeatGun : MonoBehaviour
     }
 
     void Fire() {
-        Vector3 right = new Vector3(1.0f, 0, 0);
+        Vector3 right = new Vector3(1.0f, 1.0f, 0);
         GameObject projectileObj1 = Instantiate(projectile, transform.position + right, Quaternion.identity);
         projectileObj1.GetComponent<Rigidbody2D>().velocity = bulletVelocity * right;
 
-        Vector3 left = new Vector3(-1.0f, 0, 0);
+        Vector3 left = new Vector3(-1.0f, -1.0f, 0);
         GameObject projectileObj2 = Instantiate(projectile, transform.position + left, Quaternion.identity);
         projectileObj2.GetComponent<Rigidbody2D>().velocity = bulletVelocity * left;
 
-        Vector3 up = new Vector3(0, 1.0f, 0);
+        Vector3 up = new Vector3(-1.0f, 1.0f, 0);
         GameObject projectileObj3 = Instantiate(projectile, transform.position + up, Quaternion.identity);
         projectileObj3.GetComponent<Rigidbody2D>().velocity = bulletVelocity * up;
 
-        Vector3 down = new Vector3(0, -1.0f, 0);
+        Vector3 down = new Vector3(1.0f, -1.0f, 0);
         GameObject projectileObj4 = Instantiate(projectile, transform.position + down, Quaternion.identity);
         projectileObj4.GetComponent<Rigidbody2D>().velocity = bulletVelocity * down;
     }
