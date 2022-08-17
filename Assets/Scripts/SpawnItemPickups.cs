@@ -23,7 +23,7 @@ public class SpawnItemPickups : MonoBehaviour
     {
         itemPickup = Resources.Load<GameObject>("Pickups/ItemPickupObject");
         cam = Camera.main;
-        itemPickupsToSpawn = new List<string>{ "heatGunFireRate", "playerMovementSpeed" };
+        itemPickupsToSpawn = new List<string>{ "heatGunFireRate", "heavyHeatGunFireRate", "playerMovementSpeed" };
 
         // itemPickupsToSpawn = ["heatGunFireRate", "playerMovementSpeed"];
     }
@@ -50,6 +50,8 @@ public class SpawnItemPickups : MonoBehaviour
                         obj.GetComponent<UnityEngine.Rendering.Universal.Light2D>().color = Color.red;
                     } else if (itemPickupsToSpawn[index] == "playerMovementSpeed") {
                         obj.GetComponent<UnityEngine.Rendering.Universal.Light2D>().color = Color.blue;
+                    } else if (itemPickupsToSpawn[index] == "heavyHeatGunFireRate") {
+                        obj.GetComponent<UnityEngine.Rendering.Universal.Light2D>().color = Color.magenta;
                     }
                     
                     obj.GetComponent<ItemPickupHandler>().itemName = itemPickupsToSpawn[index];

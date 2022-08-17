@@ -23,11 +23,15 @@ public class PlayerInventory : MonoBehaviour
         inventory[itemName] = inventory.ContainsKey(itemName) ? inventory[itemName] + 1 : 1; // 1line Gang represent
         if (itemName == "heatGunFireRate") {
             HeatGun heatGun = gameObject.GetComponent<HeatGun>();
-            heatGun.fireRate = heatGun.fireRate + inventory[itemName]*100;
+            heatGun.fireRate = heatGun.fireRate + inventory[itemName]*80;
         }
         if (itemName == "playerMovementSpeed") {
             PlayerMovement playerMovement = gameObject.GetComponent<PlayerMovement>();
             playerMovement.moveSpeed = playerMovement.moveSpeed + inventory[itemName];
+        }
+        if (itemName == "heavyHeatGunFireRate") {
+            HeavyHeatGun heavyHeatGun = gameObject.GetComponent<HeavyHeatGun>();
+            heavyHeatGun.fireRate = heavyHeatGun.fireRate + inventory[itemName]*5;
         }
         
     }

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5363729197058645713}
   - component: {fileID: 1996873665722572920}
   - component: {fileID: 1996873665722572921}
+  - component: {fileID: 2767465343134489321}
   - component: {fileID: -2297195080268359182}
   m_Layer: 0
   m_Name: Player
@@ -131,7 +132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerModel: {fileID: 0}
-  moveSpeed: 11
+  moveSpeed: 7
   dashSpeed: 40
   dashDuration: 0.25
   dashEffect: {fileID: 0}
@@ -168,6 +169,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 155f85726f6ca42c3b739e82e23c1766, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2767465343134489321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1996873665722572900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 605dbd15f0a988a4599626f462ff826b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireRate: 10
+  bulletVelocity: 10
+  projectile: {fileID: 8084587929231652688, guid: a12b75298dd904e9c832d7e89d3dd410, type: 3}
 --- !u!114 &-2297195080268359182
 MonoBehaviour:
   m_ObjectHideFlags: 0
