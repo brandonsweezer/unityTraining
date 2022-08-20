@@ -31,8 +31,9 @@ public class PlayerInventory : MonoBehaviour
         }
         if (itemName == "heavyHeatGunFireRate") {
             HeavyHeatGun heavyHeatGun = gameObject.GetComponent<HeavyHeatGun>();
-            heavyHeatGun.fireRate = heavyHeatGun.fireRate + inventory[itemName]*5;
+            heavyHeatGun.fireRate = heavyHeatGun.fireRate + inventory[itemName]*5;     
         }
+        
         
     }
 }

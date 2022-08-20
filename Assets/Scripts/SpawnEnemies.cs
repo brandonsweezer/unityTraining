@@ -18,37 +18,40 @@ public class SpawnEnemies : MonoBehaviour
 
     public GameObject enemyGroup; 
 
-    private int lastSpawned = 0;
+    private int lastSpawned = -1;
     private int enemyNumber = 0;
+     public List<string> wavesToSpawn;
     // Start is called before the first frame update
     void Start()
     {
         enemy = Resources.Load<GameObject>("Enemies/Square");
         cam = Camera.main;
+        wavesToSpawn = new List<string>{ "smallBasicWave", "largeBasicWave" };
+        // spawnRandomWave();
     }
 
     // Update is called once per frame
     void Update()
     {
+        // TODO: i think this doesn't belong here right?
         timer += Time.deltaTime;
         seconds = (int)timer;
         updateText();
-
-        // Instantiate at position (0, 0, 0) and zero rotation.
-        if (lastSpawned != seconds) {
-            if (enemyGroup.transform.childCount < maxEnemies) {
-                for (int i = 0; i < enemiesPerSecond; i ++) {
-                    GameObject obj;
-                    obj = Instantiate(enemy, getSpawnLocation(), Quaternion.identity);
-                    obj.GetComponent<Thermodynamics>().temperature = Random.Range(-1,1) * obj.GetComponent<Thermodynamics>().maxTemp;
-                    obj.name = $"enemy_{enemyNumber}";
-                    obj.transform.SetParent(enemyGroup.transform);
-                    lastSpawned = seconds;
-                    enemyNumber += 1;
-                }
+        if ((seconds % 20) == 0) {
+            if (lastSpawned != seconds) {
+                lastSpawned = seconds;
+                spawnRandomWave();
             }
-            
         }
+        // (OLD SPAWN CODE)
+        // Instantiate at position (0, 0, 0) and zero rotation.
+        // if (lastSpawned != seconds) {
+        //     if (enemyGroup.transform.childCount < maxEnemies) {
+        //         for (int i = 0; i < enemiesPerSecond; i ++) {
+        //             spawnSquareAtRandomPoint();
+        //         }
+        //     }
+        // }
     }
 
     void updateText() {
@@ -61,6 +64,33 @@ public class SpawnEnemies : MonoBehaviour
             displayText = $"{displayMinutes.ToString()}:{displaySeconds.ToString()}";
         }
         timerText.SetText(displayText);
+    }
+
+    void spawnSquareAtRandomPoint() {
+        GameObject obj;
+        obj = Instantiate(enemy, getSpawnLocation(), Quaternion.identity);
+        obj.GetComponent<Thermodynamics>().temperature = Random.Range(-1,1) * obj.GetComponent<Thermodynamics>().maxTemp;
+        obj.name = $"enemy_{enemyNumber}";
+        obj.transform.SetParent(enemyGroup.transform);
+        
+        enemyNumber += 1;
+    }
+
+    void spawnRandomWave() {
+        var RndB = new System.Random();
+        int index = RndB.Next(wavesToSpawn.Count);
+        if (wavesToSpawn[index] == "smallBasicWave") {
+            for (int i = 0; i < 10; i ++) {
+                spawnSquareAtRandomPoint();
+            }            
+        } else if (wavesToSpawn[index] == "largeBasicWave") {
+            for (int i = 0; i < 15; i ++) {
+                spawnSquareAtRandomPoint();
+            }
+        } else if (wavesToSpawn[index] == "completeCircleWave") {
+            // obj.GetComponent<UnityEngine.Rendering.Universal.Light2D>().color = Color.magenta;
+            Debug.Log("Nah!");
+        }
     }
 
     Vector3 getSpawnLocation()
